@@ -109,10 +109,10 @@ AFRAME.registerComponent('juego-ciclista', {
 
     this.ciclista = crear('a-entity', { position: `${CONFIG.posicionCiclista} 0 0` });
     // El pivote a media altura hace que el giro del truco sea sobre el centro de la bici
-    this.pivote = crear('a-entity', { position: '0 0.08 0' }, this.ciclista);
+    this.pivote = crear('a-entity', { position: '0 0.1 0' }, this.ciclista);
     this.cuerpo = crear('a-entity', {
-      position: '0 -0.08 0',
-      'modelo-ajustado': 'src: #modelo-bici; largo: 0.24; respaldo: bici; alinearX: true',
+      position: '0 -0.1 0',
+      'modelo-ajustado': 'src: #modelo-bici; largo: 0.3; respaldo: bici; alinearX: true',
     }, this.pivote);
 
     // Grupo de objetos reutilizables por tipo, para no crear entidades cada vez
