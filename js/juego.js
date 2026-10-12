@@ -11,9 +11,18 @@ const CONFIG = {
   frenado: 0.8,
   gravedad: 1.6,
   impulsoBrinco: 0.78,  // altura maxima aprox. 0.19
-  posicionCiclista: -0.25,
+  posicionCiclista: -0.3,
   invulnerable: 1.2,    // segundos sin recibir dano despues de chocar
-  puntos: { metro: 1, esquivar: 10, truco: 50, segundoSobrante: 5 },
+  largoPista: 1.8,      // la pista se sale un poco del marcador a los lados
+  anchoPista: 0.45,
+  puntos: { metro: 1, truco: 50, segundoSobrante: 5 },
+};
+
+// Obstaculos que se brincan: medio = mitad del largo que ocupa en la pista, alto = altura minima para librarlo
+const OBSTACULOS = {
+  cono: { probabilidad: 0.45, medio: 0.09, alto: 0.08, puntos: 10 },
+  valla: { probabilidad: 0.25, medio: 0.1, alto: 0.12, puntos: 20 },
+  rampa: { probabilidad: 0.3 },
 };
 
 const Interfaz = {
@@ -82,13 +91,20 @@ AFRAME.registerComponent('juego-ciclista', {
       return el;
     };
 
-    // Pista: suelo y lineas que se mueven para dar sensacion de velocidad
-    crear('a-box', { width: 1.2, height: 0.01, depth: 0.32, position: '0 0.001 0', color: '#3a3a3a' });
-    crear('a-box', { width: 1.2, height: 0.012, depth: 0.015, position: '0 0.004 0.16', color: '#ffffff' });
-    crear('a-box', { width: 1.2, height: 0.012, depth: 0.015, position: '0 0.004 -0.16', color: '#ffffff' });
+    // Carretera vista de lado: la cara frontal se ve como franja de asfalto con banqueta y rayas
+    const L = CONFIG.largoPista;
+    const A = CONFIG.anchoPista;
+    crear('a-box', { width: L, height: 0.06, depth: A, position: '0 -0.03 0', color: '#3a3a3a' });
+    crear('a-box', { width: L, height: 0.014, depth: 0.02, position: `0 -0.003 ${A / 2}`, color: '#ffffff' });
+    crear('a-box', { width: L, height: 0.014, depth: 0.02, position: `0 -0.003 ${-A / 2}`, color: '#ffffff' });
+    crear('a-box', { width: L, height: 0.03, depth: A + 0.04, position: '0 -0.075 0', color: '#6b8e23' });
+    // Cada raya se ve arriba (centro del carril) y en la cara frontal
     this.rayas = [];
-    for (let i = 0; i < 8; i++) {
-      this.rayas.push(crear('a-box', { width: 0.08, height: 0.013, depth: 0.012, color: '#ffd166' }));
+    for (let i = 0; i < 12; i++) {
+      const raya = crear('a-entity', {});
+      crear('a-box', { width: 0.08, height: 0.004, depth: 0.012, position: '0 0.002 0', color: '#ffd166' }, raya);
+      crear('a-box', { width: 0.08, height: 0.01, depth: 0.004, position: `0 -0.03 ${A / 2 + 0.002}`, color: '#ffd166' }, raya);
+      this.rayas.push(raya);
     }
 
     this.ciclista = crear('a-entity', { position: `${CONFIG.posicionCiclista} 0 0` });
@@ -99,27 +115,44 @@ AFRAME.registerComponent('juego-ciclista', {
       'modelo-ajustado': 'src: #modelo-bici; largo: 0.24; respaldo: bici; alinearX: true',
     }, this.pivote);
 
-    // Grupo de objetos reutilizables (conos y rampas) para no crear entidades cada vez
-    this.conos = [];
-    this.rampas = [];
-    for (let i = 0; i < 4; i++) {
-      this.conos.push(crear('a-entity', { visible: false, 'modelo-ajustado': 'src: #modelo-cono; largo: 0.09; respaldo: cono' }));
-    }
-    for (let i = 0; i < 3; i++) {
-      this.rampas.push(crear('a-entity', { visible: false, 'modelo-ajustado': 'src: #modelo-rampa; largo: 0.2; respaldo: rampa; alinearX: true' }));
+    // Grupo de objetos reutilizables por tipo, para no crear entidades cada vez
+    this.reserva = { cono: [], valla: [], rampa: [] };
+    const modelos = {
+      cono: ['src: #modelo-cono; largo: 0.09; respaldo: cono', 4],
+      valla: ['src: #modelo-valla; largo: 0.16; respaldo: valla; alinearX: true', 3],
+      rampa: ['src: #modelo-rampa; largo: 0.2; respaldo: rampa; alinearX: true', 3],
+    };
+    for (const [tipo, [attrs, cantidad]] of Object.entries(modelos)) {
+      for (let i = 0; i < cantidad; i++) {
+        this.reserva[tipo].push(crear('a-entity', { visible: false, 'modelo-ajustado': attrs }));
+      }
     }
 
-    // Meta a cuadros
+    // Meta: piso a cuadros y un arco con bandera que se ve de lado
     this.meta = crear('a-entity', { visible: false });
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 8; i++) {
       for (let j = 0; j < 2; j++) {
         crear('a-box', {
-          width: 0.04, height: 0.006, depth: 0.0533,
-          position: `${j * 0.04} 0.002 ${-0.133 + i * 0.0533}`,
+          width: 0.04, height: 0.006, depth: A / 8,
+          position: `${j * 0.04} 0.002 ${-A / 2 + A / 16 + i * (A / 8)}`,
           color: (i + j) % 2 ? '#000' : '#fff',
         }, this.meta);
       }
     }
+    for (const z of [A / 2, -A / 2]) {
+      crear('a-box', { width: 0.02, height: 0.32, depth: 0.02, position: `0.02 0.16 ${z}`, color: '#ffffff' }, this.meta);
+    }
+    // Bandera a cuadros arriba del arco
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 4; j++) {
+        crear('a-box', {
+          width: 0.035, height: 0.035, depth: 0.035,
+          position: `${0.0025 + i * 0.035} ${0.3 + j * 0.035 - 0.035} ${A / 2}`,
+          color: (i + j) % 2 ? '#000' : '#fff',
+        }, this.meta);
+      }
+    }
+    crear('a-box', { width: 0.02, height: 0.02, depth: A, position: '0.02 0.31 0', color: '#ffffff' }, this.meta);
   },
 
   // ---------- Controles ----------
@@ -217,12 +250,21 @@ AFRAME.registerComponent('juego-ciclista', {
     return obstaculo.distancia - this.estado.distancia;
   },
 
+  tipoAlAzar() {
+    let r = Math.random();
+    for (const [tipo, datos] of Object.entries(OBSTACULOS)) {
+      r -= datos.probabilidad;
+      if (r < 0) return tipo;
+    }
+    return 'cono';
+  },
+
   generarObstaculos() {
     const e = this.estado;
     const metaUnidades = CONFIG.metaMetros / CONFIG.metrosPorUnidad;
-    while (e.siguienteObstaculo < e.distancia + 1.2 && e.siguienteObstaculo < metaUnidades - 0.5) {
-      const tipo = Math.random() < 0.65 ? 'cono' : 'rampa';
-      const libre = (tipo === 'cono' ? this.conos : this.rampas).find((el) => !e.obstaculos.some((o) => o.el === el));
+    while (e.siguienteObstaculo < e.distancia + CONFIG.largoPista && e.siguienteObstaculo < metaUnidades - 0.5) {
+      const tipo = this.tipoAlAzar();
+      const libre = this.reserva[tipo].find((el) => !e.obstaculos.some((o) => o.el === el));
       if (libre) e.obstaculos.push({ tipo, el: libre, distancia: e.siguienteObstaculo, pasado: false, usada: false });
       // Espacio suficiente para aterrizar y volver a brincar a velocidad maxima
       e.siguienteObstaculo += (tipo === 'rampa' ? 2.0 : 1.4) + Math.random() * 0.7;
@@ -233,21 +275,21 @@ AFRAME.registerComponent('juego-ciclista', {
     const e = this.estado;
     for (const o of e.obstaculos) {
       const rel = this.posicionRelativa(o);
-      if (o.tipo === 'cono' && !o.pasado) {
-        if (Math.abs(rel) < 0.09 && e.altura < 0.08 && e.invulnerable <= 0) {
-          o.pasado = true;
-          this.chocar();
-        } else if (rel < -0.09) {
-          o.pasado = true;
-          e.puntos += CONFIG.puntos.esquivar;
-          Sonidos.esquivar();
-          Interfaz.aviso(`+${CONFIG.puntos.esquivar}`);
-        }
+      const datos = OBSTACULOS[o.tipo];
+      if (o.tipo === 'rampa' || o.pasado) continue;
+      if (Math.abs(rel) < datos.medio && e.altura < datos.alto && e.invulnerable <= 0) {
+        o.pasado = true;
+        this.chocar();
+      } else if (rel < -datos.medio) {
+        o.pasado = true;
+        e.puntos += datos.puntos;
+        Sonidos.esquivar();
+        Interfaz.aviso(`+${datos.puntos}`);
       }
     }
     // Se liberan los que ya quedaron atras
     e.obstaculos = e.obstaculos.filter((o) => {
-      if (this.posicionRelativa(o) < -0.4) { o.el.object3D.visible = false; return false; }
+      if (CONFIG.posicionCiclista + this.posicionRelativa(o) < -CONFIG.largoPista / 2) { o.el.object3D.visible = false; return false; }
       return true;
     });
   },
@@ -359,14 +401,15 @@ AFRAME.registerComponent('juego-ciclista', {
     for (const o of e.obstaculos) {
       const x = CONFIG.posicionCiclista + this.posicionRelativa(o);
       o.el.object3D.position.set(x, 0, 0);
-      o.el.object3D.visible = Math.abs(x) < 0.6;
+      o.el.object3D.visible = Math.abs(x) < CONFIG.largoPista / 2;
     }
     this.rayas.forEach((raya, i) => {
-      const x = ((i * 0.15 - e.distancia) % 1.2 + 1.2) % 1.2 - 0.6;
-      raya.object3D.position.set(x, 0.004, 0);
+      const L = CONFIG.largoPista;
+      const x = ((i * (L / 12) - e.distancia) % L + L) % L - L / 2;
+      raya.object3D.position.x = x;
     });
     const xMeta = CONFIG.posicionCiclista + CONFIG.metaMetros / CONFIG.metrosPorUnidad - e.distancia;
-    this.meta.object3D.visible = Math.abs(xMeta) < 0.6;
+    this.meta.object3D.visible = Math.abs(xMeta) < CONFIG.largoPista / 2;
     this.meta.object3D.position.x = xMeta;
 
     // Tiempo y fin de partida

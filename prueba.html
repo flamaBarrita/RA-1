@@ -19,14 +19,16 @@
       <a-asset-item id="modelo-bici" src="assets/models/bici.glb"></a-asset-item>
       <a-asset-item id="modelo-cono" src="assets/models/cono.glb"></a-asset-item>
       <a-asset-item id="modelo-rampa" src="assets/models/rampa.glb"></a-asset-item>
+      <a-asset-item id="modelo-valla" src="assets/models/valla.glb"></a-asset-item>
     </a-assets>
 
-    <a-camera position="0 0.55 1.1" rotation="-25 0 0" look-controls="enabled: false" wasd-controls="enabled: false"></a-camera>
+    <a-camera position="0 0 2.2" look-controls="enabled: false" wasd-controls="enabled: false"></a-camera>
     <a-light type="ambient" intensity="0.8"></a-light>
     <a-light type="directional" intensity="0.9" position="0.5 1 1"></a-light>
 
-    <a-plane width="1" height="1" rotation="-90 0 0" color="#ffffff"></a-plane>
-    <a-entity juego-ciclista></a-entity>
+    <!-- Hoja blanca en lugar del marcador, con el juego en la misma posicion que en index.html -->
+    <a-plane width="1" height="1" position="0 0 -0.3" color="#ffffff"></a-plane>
+    <a-entity position="0 -0.25 0" juego-ciclista></a-entity>
   </a-scene>
 </body>
 </html>

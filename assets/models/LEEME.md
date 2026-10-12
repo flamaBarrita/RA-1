@@ -1,12 +1,13 @@
 # Modelos 3D
 
-El juego carga tres archivos GLB desde esta carpeta. Si alguno falta, dibuja una figura sencilla en su lugar para que el juego no se rompa.
+El juego carga cuatro archivos GLB desde esta carpeta. Si alguno falta, dibuja una figura sencilla en su lugar para que el juego no se rompa.
 
 | Archivo | Modelo | Autor | Licencia | Descarga |
 |---|---|---|---|---|
 | `bici.glb` | Bike | MiniPoly | CC BY 3.0 (pide dar crédito) | https://poly.pizza/m/DN6DCPopeH |
 | `cono.glb` | Traffic Cone | Quaternius | CC0 (dominio público) | https://poly.pizza/m/lAx8JytxGD |
 | `rampa.glb` | Ramp | Quaternius | CC0 (dominio público) | https://poly.pizza/m/cS1JQReXZs |
+| `valla.glb` | Traffic Barrier | Quaternius | CC0 (dominio público) | https://poly.pizza/m/cM3aJPU9NS |
 
 Pasos:
 1. Abre cada enlace y presiona **Download** → formato **GLB**.

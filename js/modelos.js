@@ -5,7 +5,7 @@ AFRAME.registerComponent('modelo-ajustado', {
     src: { type: 'string' },      // id del <a-asset-item>, por ejemplo #modelo-bici
     largo: { type: 'number', default: 0.2 }, // medida del lado mas largo, en anchos de marcador
     giroY: { type: 'number', default: 0 },   // giro extra en grados si el modelo mira hacia otro lado
-    respaldo: { type: 'string', default: 'cono' }, // figura de respaldo: bici, cono o rampa
+    respaldo: { type: 'string', default: 'cono' }, // figura de respaldo: bici, cono, valla o rampa
     alinearX: { type: 'boolean', default: false },  // gira el modelo para que su lado largo siga la pista
   },
 
@@ -67,6 +67,12 @@ AFRAME.registerComponent('modelo-ajustado', {
       cono: [
         ['a-cone', { 'radius-bottom': l * 0.35, 'radius-top': l * 0.04, height: l, position: `0 ${l / 2} 0`, color: '#ff7b00' }],
         ['a-cylinder', { radius: l * 0.25, height: l * 0.12, position: `0 ${l * 0.45} 0`, color: '#ffffff' }],
+      ],
+      valla: [
+        ['a-box', { width: l * 0.08, height: l * 0.8, depth: l * 0.08, position: `${-l * 0.46} ${l * 0.4} 0`, color: '#555' }],
+        ['a-box', { width: l * 0.08, height: l * 0.8, depth: l * 0.08, position: `${l * 0.46} ${l * 0.4} 0`, color: '#555' }],
+        ['a-box', { width: l, height: l * 0.18, depth: l * 0.05, position: `0 ${l * 0.68} 0`, color: '#ef476f' }],
+        ['a-box', { width: l, height: l * 0.18, depth: l * 0.05, position: `0 ${l * 0.42} 0`, color: '#ffffff' }],
       ],
       rampa: [
         ['a-box', { width: l, height: l * 0.05, depth: l * 0.6, position: `0 ${l * 0.17} 0`, rotation: '0 0 20', color: '#8d6e63' }],

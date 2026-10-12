@@ -8,9 +8,9 @@ document.body.insertAdjacentHTML('afterbegin', `
     <p>Apunta la cámara al marcador y llega a la meta de 300 m en menos de 45 segundos.</p>
     <ul>
       <li><b>AVANZAR</b> (mantén presionado): pedaleas más rápido.</li>
-      <li><b>BRINCAR</b>: salta los conos. Si brincas sobre una rampa haces un <b>truco</b>.</li>
-      <li>Tienes 3 vidas. Cada choque con un cono quita una.</li>
-      <li>Puntos: +1 por metro, +10 por cono esquivado, +50 por truco (x2 si encadenas trucos sin chocar) y +5 por cada segundo que te sobre.</li>
+      <li><b>BRINCAR</b>: salta los conos y las vallas (las vallas son más altas, brinca con tiempo). Si brincas sobre una rampa haces un <b>truco</b>.</li>
+      <li>Tienes 3 vidas. Cada choque quita una.</li>
+      <li>Puntos: +1 por metro, +10 por cono y +20 por valla esquivados, +50 por truco (x2 si encadenas trucos sin chocar) y +5 por cada segundo que te sobre.</li>
     </ul>
     <p class="record">Récord: <span id="record-inicio">0</span></p>
     <button id="btn-jugar" class="btn-grande">JUGAR</button>

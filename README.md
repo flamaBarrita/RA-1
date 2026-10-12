@@ -1,6 +1,6 @@
 # Bici Trick RA
 
-Minijuego de realidad aumentada para el teléfono. Al apuntar la cámara a un marcador QR de diseño propio aparece una pista sobre la mesa con un ciclista que tiene que esquivar conos y hacer trucos en rampas antes de que se acabe el tiempo.
+Minijuego de realidad aumentada para el teléfono. Al apuntar la cámara a un marcador QR de diseño propio aparece una carretera vista de lado, como un juego de plataformas, con un ciclista que tiene que brincar conos y vallas y hacer trucos en rampas antes de que se acabe el tiempo.
 
 Funciona directo en el navegador del teléfono (Chrome en Android o Safari en iPhone), sin instalar ninguna app.
 
@@ -12,16 +12,16 @@ Funciona directo en el navegador del teléfono (Chrome en Android o Safari en iP
 ## Cómo se juega
 
 1. Abre el enlace en el teléfono (o escanea el QR del marcador con la cámara normal) y da permiso a la cámara.
-2. Apunta al marcador impreso. La pista aparece encima.
+2. Apunta al marcador impreso. La carretera aparece en la parte de abajo del marcador y se sale un poco por los lados, así que conviene alejar el teléfono o ponerlo en horizontal.
 3. Presiona **JUGAR**.
 
 | Elemento | Detalle |
 |---|---|
 | **Objetivo** | Recorrer 300 m en menos de 45 segundos. |
 | **AVANZAR** (mantener presionado) | El ciclista acelera. Si lo sueltas, frena poco a poco. |
-| **BRINCAR** | Salta los conos. Si brincas justo sobre una rampa, el ciclista hace un giro de 360° (truco). |
-| **Vidas** | 3. Cada choque con un cono quita una y te deja un momento sin daño (el ciclista parpadea). |
-| **Puntos** | +1 por metro, +10 por cono esquivado, +50 por truco (x2 si encadenas trucos sin chocar) y +5 por cada segundo que sobre al llegar. |
+| **BRINCAR** | Salta los conos y las vallas. Las vallas son más altas, así que hay que brincar con más anticipación. Si brincas justo sobre una rampa, el ciclista da una vuelta completa en el aire (truco). |
+| **Vidas** | 3. Cada choque con un cono o una valla quita una y te deja un momento sin daño (el ciclista parpadea). |
+| **Puntos** | +1 por metro, +10 por cono y +20 por valla esquivados, +50 por truco (x2 si encadenas trucos sin chocar) y +5 por cada segundo que sobre al llegar. |
 | **Fin de partida** | **¡META!** al llegar a 300 m. **GAME OVER** si pierdes las 3 vidas o se acaba el tiempo. Se muestra el puntaje y el récord guardado en el teléfono. |
 | **Si se pierde el marcador** | El juego se pausa y pide volver a apuntar. |
 
@@ -57,8 +57,9 @@ Después hay que volver a compilar `marcador/targets.mind` con el compilador ofi
 | Bike | MiniPoly | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) | https://poly.pizza/m/DN6DCPopeH |
 | Traffic Cone | Quaternius | [CC0](https://creativecommons.org/publicdomain/zero/1.0/) | https://poly.pizza/m/lAx8JytxGD |
 | Ramp | Quaternius | [CC0](https://creativecommons.org/publicdomain/zero/1.0/) | https://poly.pizza/m/cS1JQReXZs |
+| Traffic Barrier | Quaternius | [CC0](https://creativecommons.org/publicdomain/zero/1.0/) | https://poly.pizza/m/cM3aJPU9NS |
 
-Los archivos van en `assets/models/` con los nombres `bici.glb`, `cono.glb` y `rampa.glb` (instrucciones en [`assets/models/LEEME.md`](assets/models/LEEME.md)). Al cargarse, `js/modelos.js` los escala al mismo tamaño, los gira para que sigan la pista y los apoya en el suelo. Si un archivo falta, el juego dibuja una figura sencilla en su lugar.
+Los archivos van en `assets/models/` con los nombres `bici.glb`, `cono.glb`, `rampa.glb` y `valla.glb` (instrucciones en [`assets/models/LEEME.md`](assets/models/LEEME.md)). Al cargarse, `js/modelos.js` los escala al mismo tamaño, los gira para que sigan la pista y los apoya en el suelo. Si un archivo falta, el juego dibuja una figura sencilla en su lugar.
 
 ## Tecnología
 

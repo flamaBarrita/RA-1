@@ -25,6 +25,7 @@
       <a-asset-item id="modelo-bici" src="assets/models/bici.glb"></a-asset-item>
       <a-asset-item id="modelo-cono" src="assets/models/cono.glb"></a-asset-item>
       <a-asset-item id="modelo-rampa" src="assets/models/rampa.glb"></a-asset-item>
+      <a-asset-item id="modelo-valla" src="assets/models/valla.glb"></a-asset-item>
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -32,8 +33,8 @@
     <a-light type="directional" intensity="0.9" position="0.5 1 1"></a-light>
 
     <a-entity id="objetivo" mindar-image-target="targetIndex: 0">
-      <!-- Girado 90° para que la pista quede "parada" sobre el marcador acostado en la mesa -->
-      <a-entity rotation="90 0 0" juego-ciclista="objetivo: #objetivo"></a-entity>
+      <!-- Vista lateral: la carretera corre a lo ancho del marcador, en su parte de abajo, como un juego de plataformas -->
+      <a-entity position="0 -0.25 0" juego-ciclista="objetivo: #objetivo"></a-entity>
     </a-entity>
   </a-scene>
 </body>
