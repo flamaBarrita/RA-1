@@ -1,0 +1,136 @@
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.oculto { display: none !important; }
+
+/* Todo lo de la interfaz va por encima del video de la camara */
+.pantalla, #hud, #avisos, #aviso-marcador, #controles, #destello { position: fixed; z-index: 10; }
+
+.pantalla {
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(10, 10, 20, 0.88);
+  color: #fff;
+  text-align: center;
+}
+.pantalla h1 { font-size: 2.4rem; margin: 0 0 12px; letter-spacing: 2px; color: #ffd166; }
+.pantalla ul { text-align: left; max-width: 420px; padding-left: 20px; line-height: 1.5; }
+.record { color: #ffd166; font-weight: bold; }
+.puntaje-final { font-size: 2rem; font-weight: bold; margin: 8px 0; }
+
+.btn-grande {
+  margin-top: 16px;
+  padding: 16px 48px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 40px;
+  background: #06d6a0;
+  color: #073b4c;
+  box-shadow: 0 6px 0 #04976f;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.btn-grande:active { transform: translateY(6px); box-shadow: 0 0 0 #04976f; }
+
+#hud {
+  top: 0; left: 0; right: 0;
+  padding: 12px 16px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(rgba(0, 0, 0, 0.55), transparent);
+}
+.hud-fila { display: flex; justify-content: space-between; }
+#hud-vidas { color: #ef476f; letter-spacing: 2px; }
+.progreso { margin-top: 8px; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.3); overflow: hidden; }
+#barra-progreso { height: 100%; width: 0; background: #ffd166; transition: width 0.1s linear; }
+#hud-metros { margin-top: 4px; font-size: 0.9rem; text-align: center; }
+
+#controles {
+  left: 0; right: 0;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+}
+.btn-control {
+  pointer-events: auto;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+  transition: transform 0.08s, box-shadow 0.08s, filter 0.08s;
+  touch-action: none;
+}
+.btn-control span { font-size: 0.8rem; margin-top: 2px; }
+#btn-avanzar { background: rgba(17, 138, 178, 0.85); }
+#btn-brincar { background: rgba(239, 71, 111, 0.85); }
+/* Retroalimentacion visual: el boton se hunde y se ilumina */
+.btn-control.presionado {
+  transform: translateY(6px) scale(0.92);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.35), 0 0 24px 6px rgba(255, 255, 255, 0.7);
+  filter: brightness(1.35);
+}
+
+#avisos {
+  top: 30%; left: 0; right: 0;
+  pointer-events: none;
+  text-align: center;
+}
+.aviso {
+  position: absolute;
+  left: 0; right: 0;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.8);
+  animation: subir 1.1s ease-out forwards;
+}
+.aviso.truco { color: #ffd166; font-size: 2.2rem; }
+.aviso.malo { color: #ef476f; }
+@keyframes subir {
+  from { transform: translateY(0) scale(0.6); opacity: 1; }
+  30% { transform: translateY(-20px) scale(1.15); }
+  to { transform: translateY(-90px) scale(1); opacity: 0; }
+}
+
+#aviso-marcador {
+  top: 45%; left: 10%; right: 10%;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+#destello { inset: 0; pointer-events: none; opacity: 0; }
+#destello.rojo { background: rgba(239, 71, 111, 0.5); }
+#destello.dorado { background: rgba(255, 209, 102, 0.4); }
+#destello.activo { animation: destello 0.4s ease-out; }
+@keyframes destello { from { opacity: 1; } to { opacity: 0; } }
+
+/* Botones propios de A-Frame que no se usan en este juego */
+.a-enter-vr, .a-enter-vr-button, .a-enter-ar, .a-enter-ar-button, .a-orientation-modal { display: none !important; }

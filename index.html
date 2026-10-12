@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Bici Trick RA</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="lib/aframe-v1.5.0.min.js"></script>
+  <script src="lib/mindar-image-aframe-1.2.5.prod.js"></script>
+  <script src="js/sonidos.js"></script>
+  <script src="js/modelos.js"></script>
+  <script src="js/juego.js"></script>
+</head>
+<body>
+  <script src="js/pantallas.js"></script>
+
+  <!-- filterMinCF y filterBeta suavizan el temblor del modelo; missTolerance evita perder el marcador por un parpadeo -->
+  <a-scene
+    mindar-image="imageTargetSrc: marcador/targets.mind; uiScanning: no; filterMinCF: 0.0001; filterBeta: 0.001; missTolerance: 5; warmupTolerance: 2"
+    renderer="colorManagement: true; antialias: true"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-assets timeout="3000">
+      <a-asset-item id="modelo-bici" src="assets/models/bici.glb"></a-asset-item>
+      <a-asset-item id="modelo-cono" src="assets/models/cono.glb"></a-asset-item>
+      <a-asset-item id="modelo-rampa" src="assets/models/rampa.glb"></a-asset-item>
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+    <a-light type="ambient" intensity="0.8"></a-light>
+    <a-light type="directional" intensity="0.9" position="0.5 1 1"></a-light>
+
+    <a-entity id="objetivo" mindar-image-target="targetIndex: 0">
+      <!-- Girado 90° para que la pista quede "parada" sobre el marcador acostado en la mesa -->
+      <a-entity rotation="90 0 0" juego-ciclista="objetivo: #objetivo"></a-entity>
+    </a-entity>
+  </a-scene>
+</body>
+</html>

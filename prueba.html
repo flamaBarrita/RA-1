@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>Bici Trick RA (modo prueba sin cámara)</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="lib/aframe-v1.5.0.min.js"></script>
+  <script src="js/sonidos.js"></script>
+  <script src="js/modelos.js"></script>
+  <script src="js/juego.js"></script>
+</head>
+<body>
+  <script src="js/pantallas.js"></script>
+
+  <!-- Misma escena que index.html pero sin cámara ni marcador, para probar en computadora -->
+  <a-scene background="color: #9ad1f5" renderer="colorManagement: true; antialias: true" vr-mode-ui="enabled: false">
+    <a-assets timeout="3000">
+      <a-asset-item id="modelo-bici" src="assets/models/bici.glb"></a-asset-item>
+      <a-asset-item id="modelo-cono" src="assets/models/cono.glb"></a-asset-item>
+      <a-asset-item id="modelo-rampa" src="assets/models/rampa.glb"></a-asset-item>
+    </a-assets>
+
+    <a-camera position="0 0.55 1.1" rotation="-25 0 0" look-controls="enabled: false" wasd-controls="enabled: false"></a-camera>
+    <a-light type="ambient" intensity="0.8"></a-light>
+    <a-light type="directional" intensity="0.9" position="0.5 1 1"></a-light>
+
+    <a-plane width="1" height="1" rotation="-90 0 0" color="#ffffff"></a-plane>
+    <a-entity juego-ciclista></a-entity>
+  </a-scene>
+</body>
+</html>
