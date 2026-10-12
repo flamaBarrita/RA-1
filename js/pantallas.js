@@ -5,7 +5,7 @@ document.body.insertAdjacentHTML('afterbegin', `
 
   <section id="pantalla-inicio" class="pantalla">
     <h1>BICI TRICK RA</h1>
-    <p>Apunta la cámara al marcador y llega a la meta de 300 m en menos de 45 segundos.</p>
+    <p>Apunta la cámara al marcador y llega a la meta de 1500 m en menos de 2 minutos y medio.</p>
     <ul>
       <li><b>AVANZAR</b> (mantén presionado): pedaleas más rápido.</li>
       <li><b>BRINCAR</b>: salta los conos y las vallas (las vallas son más altas, brinca con tiempo). Si brincas sobre una rampa haces un <b>truco</b>.</li>

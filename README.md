@@ -17,12 +17,12 @@ Funciona directo en el navegador del teléfono (Chrome en Android o Safari en iP
 
 | Elemento | Detalle |
 |---|---|
-| **Objetivo** | Recorrer 300 m en menos de 45 segundos. |
+| **Objetivo** | Recorrer 1500 m en menos de 2 minutos y medio (a toda velocidad toma unos 2 minutos). |
 | **AVANZAR** (mantener presionado) | El ciclista acelera. Si lo sueltas, frena poco a poco. |
 | **BRINCAR** | Salta los conos y las vallas. Las vallas son más altas, así que hay que brincar con más anticipación. Si brincas justo sobre una rampa, el ciclista da una vuelta completa en el aire (truco). |
 | **Vidas** | 3. Cada choque con un cono o una valla quita una y te deja un momento sin daño (el ciclista parpadea). |
 | **Puntos** | +1 por metro, +10 por cono y +20 por valla esquivados, +50 por truco (x2 si encadenas trucos sin chocar) y +5 por cada segundo que sobre al llegar. |
-| **Fin de partida** | **¡META!** al llegar a 300 m. **GAME OVER** si pierdes las 3 vidas o se acaba el tiempo. Se muestra el puntaje y el récord guardado en el teléfono. |
+| **Fin de partida** | **¡META!** al llegar a 1500 m. **GAME OVER** si pierdes las 3 vidas o se acaba el tiempo. Se muestra el puntaje y el récord guardado en el teléfono. |
 | **Si se pierde el marcador** | El juego se pausa y pide volver a apuntar. |
 
 En computadora se puede probar sin cámara con [`prueba.html`](prueba.html): flecha derecha = avanzar, espacio = brincar.

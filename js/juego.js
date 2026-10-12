@@ -2,8 +2,8 @@
 // Unidades: 1 = ancho del marcador. La pista corre sobre el eje X y el ciclista mira hacia +X.
 
 const CONFIG = {
-  metaMetros: 300,      // distancia para ganar
-  tiempoLimite: 45,     // segundos para llegar a la meta
+  metaMetros: 1500,     // distancia para ganar (unos 2 minutos a toda velocidad)
+  tiempoLimite: 150,    // segundos para llegar a la meta
   vidas: 3,
   metrosPorUnidad: 10,  // 1 ancho de marcador = 10 m del juego
   velocidadMax: 1.2,    // unidades por segundo con AVANZAR presionado
@@ -33,7 +33,8 @@ const Interfaz = {
   actualizar(estado) {
     this.$('hud-puntos').textContent = estado.puntos;
     this.$('hud-metros').textContent = `${Math.min(estado.metros, CONFIG.metaMetros)} / ${CONFIG.metaMetros} m`;
-    this.$('hud-tiempo').textContent = `${Math.ceil(estado.tiempo)} s`;
+    const seg = Math.ceil(estado.tiempo);
+    this.$('hud-tiempo').textContent = `${Math.floor(seg / 60)}:${String(seg % 60).padStart(2, '0')}`;
     this.$('hud-vidas').textContent = '❤'.repeat(estado.vidas) + '♡'.repeat(CONFIG.vidas - estado.vidas);
     this.$('barra-progreso').style.width = `${Math.min(100, (estado.metros / CONFIG.metaMetros) * 100)}%`;
   },
@@ -120,7 +121,7 @@ AFRAME.registerComponent('juego-ciclista', {
     const modelos = {
       cono: ['src: #modelo-cono; largo: 0.09; respaldo: cono', 4],
       valla: ['src: #modelo-valla; largo: 0.16; respaldo: valla; alinearX: true', 3],
-      rampa: ['src: #modelo-rampa; largo: 0.2; respaldo: rampa; alinearX: true', 3],
+      rampa: ['src: #modelo-rampa; largo: 0.2; respaldo: rampa; alinearX: true; giroY: 180', 3],
     };
     for (const [tipo, [attrs, cantidad]] of Object.entries(modelos)) {
       for (let i = 0; i < cantidad; i++) {
