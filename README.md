@@ -93,7 +93,7 @@ python3 -m http.server 8000
 # abre http://localhost:8000 en la computadora
 ```
 
-El juego está publicado en Vercel (proyecto `bici-trick-ra`), conectado a este repositorio: cada push a la rama principal se publica solo. Como es un sitio estático, no necesita comando de build.
+El juego está publicado en Vercel (proyecto `bici-trick-ra`), a partir de este repositorio. Como es un sitio estático, no necesita comando de build.
 
 ## Créditos
 
