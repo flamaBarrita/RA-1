@@ -4,7 +4,7 @@ Minijuego de realidad aumentada para el teléfono. Al apuntar la cámara a un ma
 
 Funciona directo en el navegador del teléfono (Chrome en Android o Safari en iPhone), sin instalar ninguna app.
 
-**Jugar:** https://flamabarrita.github.io/RA-1/
+**Jugar:** https://bici-trick-ra.vercel.app/
 **Marcador para imprimir:** [`marcador/marcador.pdf`](marcador/marcador.pdf)
 
 ![Marcador](marcador/marcador.png)
@@ -45,7 +45,7 @@ Para regenerarlo (por ejemplo si cambia la URL del juego):
 
 ```bash
 pip install qrcode pillow
-python3 herramientas/generar_marcador.py https://TU-USUARIO.github.io/RA-1/
+python3 herramientas/generar_marcador.py https://TU-PROYECTO.vercel.app/
 ```
 
 Después hay que volver a compilar `marcador/targets.mind` con el compilador oficial de MindAR: https://hiukim.github.io/mind-ar-js-doc/tools/compile (sube `marcador.png` y descarga el archivo).
@@ -93,7 +93,7 @@ python3 -m http.server 8000
 # abre http://localhost:8000 en la computadora
 ```
 
-Para probar en el teléfono lo más fácil es publicarlo con GitHub Pages: **Settings → Pages → Deploy from a branch**, elegir la rama y la carpeta `/ (root)`.
+El juego está publicado en Vercel (proyecto `bici-trick-ra`), conectado a este repositorio: cada push a la rama principal se publica solo. Como es un sitio estático, no necesita comando de build.
 
 ## Créditos
 

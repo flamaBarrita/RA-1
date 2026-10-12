@@ -13,7 +13,7 @@ from pathlib import Path
 import qrcode
 from PIL import Image, ImageDraw, ImageFont
 
-URL = sys.argv[1] if len(sys.argv) > 1 else "https://flamabarrita.github.io/RA-1/"
+URL = sys.argv[1] if len(sys.argv) > 1 else "https://bici-trick-ra.vercel.app/"
 SALIDA = Path(__file__).resolve().parent.parent / "marcador"
 TAM = 1200  # lado del marcador en pixeles
 NEGRO, BLANCO = (0, 0, 0), (255, 255, 255)
